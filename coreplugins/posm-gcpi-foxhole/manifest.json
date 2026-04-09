@@ -1,12 +1,12 @@
 {
 	"name": "posm-gcpi-foxhole",
 	"webodmMinVersion": "0.7.1",
-	"description": "An example plugin for development",
-	"version": "1.0.0",
-	"author": "Piero Toffanin",
-	"email": "pt@masseranolabs.com",
+	"description": "Plugin for foxhole GCP",
+	"version": "0.0.1",
+	"author": "Astrosias",
+	"email": "astrosias@proton.me",
 	"repository": "https://github.com/WebODM/WebODM",
-	"tags": ["examples"],
+	"tags": ["foxhole", "GCP"],
 	"homepage": "https://github.com/WebODM/WebODM",
 	"experimental": false,
 	"deprecated": false
