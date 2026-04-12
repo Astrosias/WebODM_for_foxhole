@@ -4,3 +4,6 @@
 [submodule "locale"]
 	path = locale
 	url = https://github.com/WebODM/WebODM-Locale
+[submodule "coreplugins/video_editor/public/Pilko-Frame-Capture-Studio"]
+	path = coreplugins/video_editor/public/Pilko-Frame-Capture-Studio
+	url = https://github.com/LandoNikko/Pilko-Frame-Capture-Studio.git

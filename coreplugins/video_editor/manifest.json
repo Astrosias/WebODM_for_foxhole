@@ -1,0 +1,13 @@
+{
+	"name": "video-editor",
+	"webodmMinVersion": "0.7.1",
+	"description": "Sample your videos here before adding them to a task",
+	"version": "0.0.1",
+	"author": "Astrosias",
+	"email": "astrosias@proton.me",
+	"repository": "https://github.com/WebODM/WebODM",
+	"tags": ["video", "sampling"],
+	"homepage": "https://github.com/WebODM/WebODM",
+	"experimental": false,
+	"deprecated": false
+}
