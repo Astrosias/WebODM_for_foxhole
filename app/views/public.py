@@ -6,6 +6,7 @@ from django.utils.translation import ugettext as _
 from django.shortcuts import render
 
 from app.api.tasks import TaskSerializer
+from app.models import Basemap
 from app.views.utils import get_permissions, get_task_or_raise, get_project_or_raise, handle_302
 from django.views.decorators.csrf import ensure_csrf_cookie
 from webodm import settings
@@ -53,10 +54,11 @@ def handle_map(request, template, uuid_type=None, uuid=None, hide_title=False):
             'title': title if not hide_title else '',
             'public': 'true',
             'public-edit': str(public_edit).lower(),
-            'share-buttons': 'false' if settings.DESKTOP_MODE else 'true',
+            'share-buttons': 'true',
             'selected-map-type': request.GET.get('t', 'auto'),
             'permissions': json.dumps(permissions),
-            'project': json.dumps(projectInfo)
+            'project': json.dumps(projectInfo),
+            'basemaps': json.dumps(Basemap.get_cached_basemaps())
         }.items()
     })
 
@@ -79,7 +81,7 @@ def handle_model_display(request, template, task_pk=None):
                 'task': json.dumps(task.get_model_display_params()),
                 'public': 'true',
                 'public-edit': str(task.public_edit).lower(),
-                'share-buttons': 'false' if settings.DESKTOP_MODE else 'true',
+                'share-buttons': 'true',
                 'model-type': request.GET.get('t', 'cloud'),
             }.items()
         })

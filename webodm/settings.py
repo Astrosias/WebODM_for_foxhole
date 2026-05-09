@@ -2,7 +2,6 @@ import os, sys, json
 
 import datetime
 
-import tzlocal
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -166,7 +165,7 @@ AUTHENTICATION_BACKENDS = (
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = tzlocal.get_localzone().zone
+TIME_ZONE = 'Etc/UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -358,6 +357,14 @@ NODE_OPTIMISTIC_MODE = False
 
 # URL to external auth endpoint
 EXTERNAL_AUTH_ENDPOINT = ''
+
+# OpenID Connect (OIDC) authentication
+OIDC_AUTH_PROVIDERS = []
+
+# OpenID Connect (IODC) list of authorized e-mails
+# when set, rejects any user who's email does not match an entry (domain-wide matches supported)
+# e.g. ["@myorg.com", "exactuser@otherorg.com"]
+OIDC_AUTH_EMAILS = None
 
 # Enable cluster mode for this instance by setting an integer ID >= 1
 CLUSTER_ID = None

@@ -70,6 +70,14 @@ class ManageMediaDialog extends React.Component {
       if (this._mounted) this.props.onClose();
     });
 
+    // Prevent drag/drop events from leaking through the modal
+    ['dragenter', 'dragover', 'dragleave', 'drop', 'dragend'].forEach(eventName => {
+      $(this.modal).on(eventName, e => {
+        e.stopPropagation();
+        e.preventDefault();
+      });
+    });
+
     this.fetchMedia();
 
     if (this.props.canEdit && this.dropzone) {
@@ -139,7 +147,7 @@ class ManageMediaDialog extends React.Component {
         .on("complete", (file) => {
             // Retry
             const retry = () => {
-                const MAX_RETRIES = 5;
+                const MAX_RETRIES = 15;
 
                 if (!file.accepted){
                   throw new Error(interpolate(_('%(filename)s is not a valid file'), {filename: file.name }));
@@ -161,7 +169,7 @@ class ManageMediaDialog extends React.Component {
                     file.retries++;
                     setTimeout(() => {
                       this.dz.processQueue();
-                    }, 5000 * file.retries);
+                    }, 2500 * file.retries);
                 }else{
                     throw new Error(interpolate(_('Cannot upload %(filename)s, exceeded max retries (%(max_retries)s)'), {filename: file.name, max_retries: MAX_RETRIES}));
                 }
@@ -244,6 +252,9 @@ class ManageMediaDialog extends React.Component {
 
   componentWillUnmount() {
     this._mounted = false;
+    ['dragenter', 'dragover', 'dragleave', 'drop', 'dragend'].forEach(eventName => {
+      $(this.modal).off(eventName);
+    });
     if (this.dz) {
       this.dz.destroy();
       this.dz = null;
@@ -380,7 +391,7 @@ class ManageMediaDialog extends React.Component {
     if (!canEdit) return null;
 
     return (
-      <div ref={(el) => (this.dropzone = el)} className="media-upload-area">
+      <div className="media-upload-area">
         <button
           ref={(el) => (this.uploadBtn = el)}
           disabled={uploading}
@@ -497,7 +508,7 @@ class ManageMediaDialog extends React.Component {
     return (
       <div ref={(el) => (this.modal = el)} className="modal manage-media-dialog" tabIndex="-1" data-backdrop="static">
         <div className="modal-dialog modal-lg">
-          <div className="modal-content">
+          <div ref={(el) => (this.dropzone = el)} className="modal-content">
             <div className="modal-header">
               <button type="button" className="close" onClick={this.handleClose}>
                 <span>&times;</span>

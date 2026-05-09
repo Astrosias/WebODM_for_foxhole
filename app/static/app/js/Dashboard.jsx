@@ -13,10 +13,12 @@ import { _ } from './classes/gettext';
 
 class Dashboard extends React.Component {
   static defaultProps = {
-    permissions: []
+    permissions: [],
+    basemaps: []
   };
   static propTypes = {
     permissions: PropTypes.array.isRequired,
+    basemaps: PropTypes.array
   };
 
   constructor(props){
@@ -59,6 +61,7 @@ class Dashboard extends React.Component {
                 currentPage={q.page}
                 currentSearch={q.search}
                 history={history}
+                basemaps={this.props.basemaps}
                 />;
     };
 
