@@ -482,7 +482,7 @@ def download_file_response(request, filePath, content_disposition, download_file
 
 def download_file_stream(request, stream, content_disposition, download_filename=None):
     if not isinstance(stream, ZipStream):
-        # This should never happen, but just in case..
+        # This should never happen, but just in case...
         raise exceptions.ValidationError("stream not a zipstream instance")
     
     response = StreamingHttpResponse(stream, content_type=(mimetypes.guess_type(download_filename)[0] or "application/zip"))
